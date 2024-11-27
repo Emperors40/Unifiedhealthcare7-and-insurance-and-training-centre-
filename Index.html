@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Healthcare, Insurance, and Training Centre</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover, nav a:focus {
+            background-color: #4a6785;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover, button:focus {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function App() {
+            const [currentSection, setCurrentSection] = React.useState('home');
+
+            return (
+                <div>
+                    <header>
+                        <h1>Unified Healthcare, Insurance, and Training Centre</h1>
+                    </header>
+                    <Navigation setCurrentSection={setCurrentSection} />
+                    <main className="container">
+                        {currentSection === 'home' && <Home />}
+                        {currentSection === 'healthcare' && <Healthcare />}
+                        {currentSection === 'insurance' && <Insurance />}
+                        {currentSection === 'training' && <Training />}
+                        {currentSection === 'production' && <Production />}
+                        {currentSection === '3d-printers' && <ThreeDPrinters />}
+                        {currentSection === 'ar-vr' && <ARVRAssembly />}
+                        {currentSection === 'health-dashboard' && <HealthDashboard />}
+                    </main>
+                    <footer className="content">
+                        <p>&copy; 2024 Unified Healthcare, Insurance, and Training Centre. All rights reserved.</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        function Navigation({ setCurrentSection }) {
+            return (
+                <nav>
+                    <a href="#" onClick={() => setCurrentSection('home')}>Home</a>
+                    <a href="#" onClick={() => setCurrentSection('healthcare')}>Healthcare</a>
+                    <a href="#" onClick={() => setCurrentSection('insurance')}>Insurance</a>
+                    <a href="#" onClick={() => setCurrentSection('training')}>Training</a>
+                    <a href="#" onClick={() => setCurrentSection('production')}>Production</a>
+                    <a href="#" onClick={() => setCurrentSection('3d-printers')}>3D Printers</a>
+                    <a href="#" onClick={() => setCurrentSection('ar-vr')}>AR/VR Guide</a>
+                    <a href="#" onClick={() => setCurrentSection('health-dashboard')}>Health Dashboard</a>
+                </nav>
+            );
+        }
+
+        function Home() {
+            return (
+                <div className="content">
+                    <h2>Welcome to the Unified Healthcare, Insurance, and Training Centre</h2>
+                    <p>Our integrated platform provides comprehensive healthcare services, insurance coverage, and advanced training programs. Navigate through the sections to explore our offerings.</p>
+                    <ul>
+                        <li>Access your personal health records and insurance information</li>
+                        <li>Participate in cutting-edge medical training programs</li>
+                        <li>Explore our advanced production facilities and 3D printing capabilities</li>
+                        <li>Experience AR/VR guided assembly and maintenance procedures</li>
+                    </ul>
+                </div>
+            );
+        }
+
+        function Healthcare() {
+            const [scanResult, setScanResult] = React.useState(null);
+            const [medicalHistory, setMedicalHistory] = React.useState([]);
+
+            React.useEffect(() => {
+                setMedicalHistory(['Annual checkup - 01/15/2024', 'Flu shot - 09/20/2023']);
+            }, []);
+
+            const startScan = () => {
+                setScanResult("Accessing camera for body scan... (simulating)");
+                setTimeout(() => {
+                    setScanResult("Scan complete. Data sent to backend for analysis. Updating medical records and 3D health model.");
+                    setMedicalHistory(prev => [`Body scan - ${new Date().toLocaleString()}`, ...prev]);
+                }, 3000);
+            };
+
+            return (
+                <div className="content">
+                    <h2>Healthcare Services</h2>
+                    <button onClick={startScan}>Perform Body Scan</button>
+                    {scanResult && <div className="card" aria-live="polite"><p>{scanResult}</p></div>}
+                    <h3>Medical History</h3>
+                    <ul>
+                        {medicalHistory.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        function Insurance() {
+            const [coverage, setCoverage] = React.useState(null);
+            const [claims, setClaims] = React.useState([]);
+
+            React.useEffect(() => {
+                setCoverage({
+                    type: "Comprehensive",
+                    premium: "₦10,000 per year",
+                    benefits: ["Hospital care", "Prescription drugs", "Preventive services"]
+                });
+                setClaims([
+                    { date: "03/15/2024", description: "Annual checkup", status: "Approved" },
+                    { date: "02/01/2024", description: "Prescription refill", status: "Processing" }
+                ]);
+            }, []);
+
+            return (
+                <div className="content">
+                    <h2>Insurance Information</h2>
+                    {coverage && (
+                        <div className="card">
+                            <h3>Current Coverage</h3>
+                            <p>Type: {coverage.type}</p>
+                            <p>Premium: {coverage.premium}</p>
+                            <h4>Benefits:</h4>
+                            <ul>
+                                {coverage.benefits.map((benefit, index) => (
+                                    <li key={index}>{benefit}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    <h3>Recent Claims</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {claims.map((claim, index) => (
+                                <tr key={index}>
+                                    <td>{claim.date}</td>
+                                    <td>{claim.description}</td>
+                                    <td>{claim.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
+        function Training() {
+            const [selectedCourse, setSelectedCourse] = React.useState('');
+            const [enrollmentStatus, setEnrollmentStatus] = React.useState('');
+
+            const courses = [
+                { id: 'med101', name: 'Introduction to Medical Procedures' },
+                { id: 'tech201', name: 'Advanced Medical Technology' },
+                { id: 'man301', name: 'Healthcare Facility Management' }
+            ];
+
+            const handleEnroll = () => {
+                if (selectedCourse) {
+                    setEnrollmentStatus(`You have been enrolled in ${courses.find(c => c.id === selectedCourse).name}`);
+                } else {
+                    setEnrollmentStatus('Please select a course before enrolling.');
+                }
+            };
+
+            return (
+                <div className="content">
+                    <h2>Training Programs</h2>
+                    <label htmlFor="course-select" className="sr-only">Select a course</label>
+                    <select
+                        id="course-select"
+                        value={selectedCourse}
+                        onChange={(e) => setSelectedCourse(e.target.value)}
+                    >
+                        <option value="">Select a course</option>
+                        {courses.map((course) => (
+                            <option key={course.id} value={course.id}>{course.name}</option>
+                        ))}
+                    </select>
+                    <button onClick={handleEnroll} disabled={!selectedCourse}>Enroll in Course</button>
+                    {enrollmentStatus && <div className="card" aria-live="polite"><p>{enrollmentStatus}</p></div>}
+                </div>
+            );
+        }
+
+        function Production() {
+            const [description, setDescription] = React.useState('');
+            const [generatedFiles, setGeneratedFiles] = React.useState(null);
+            const [simulationResult, setSimulationResult] = React.useState(null);
+
+            const generateDesign = () => {
+                if (!description) {
+                    alert('Please describe your production needs.');
+                    return;
+                }
+                setGeneratedFiles("Generating CAD and 3D Models...");
+                setTimeout(() => {
+                    setGeneratedFiles(`Generated CAD and 3D Models for: ${description}`);
+                    setSimulationResult("Simulating and validating design...");
+                    setTimeout(() => {
+                        setSimulationResult("Design validated. Meets real-world operational standards.");
+                    }, 2000);
+                }, 2000);
+            };
+
+            return (
+                <div className="content">
+                    <h2>Production Line Design</h2>
+                    <label htmlFor="production-description" className="sr-only">Describe your production needs</label>
+                    <textarea
+                        id="production-description"
+                        placeholder="Describe your production needs..."
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <button onClick={generateDesign}>Generate CAD and 3D Models</button>
+                    {generatedFiles && <div className="card" aria-live="polite"><p>{generatedFiles}</p></div>}
+                    {simulationResult && <div className="card" aria-live="polite"><p>{simulationResult}</p></div>}
+                </div>
+            );
+        }
+
+        function ThreeDPrinters() {
+            const [printerDescription, setPrinterDescription] = React.useState('');
+            const [simulationResult, setSimulationResult] = React.useState(null);
+            const [validationResult, setValidationResult] = React.useState(null);
+
+            const simulatePrinter = () => {
+                if (!printerDescription) {
+                    alert('Please describe the multi-material 3D printer.');
+                    return;
+                }
+                setSimulationResult("Generating design and simulating multi-material 3D printer...");
+                setTimeout(() => {
+                    setSimulationResult(`Simulation complete for: ${printerDescription}. Manufacturing process simulated for real-world accuracy.`);
+                    setValidationResult("Validating printer design...");
+                    setTimeout(() => {
+                        setValidationResult("Design validated. Functionality and structural integrity confirmed.");
+                    }, 2000);
+                }, 3000);
+            };
+
+            return (
+                <div className="content">
+                    <h2>Multi-Material 3D Printer Simulation</h2>
+                    <label htmlFor="printer-description" className="sr-only">Describe the multi-material 3D printer</label>
+                    <textarea
+                        id="printer-description"
+                        placeholder="Describe the multi-material 3D printer..."
+                        value={printerDescription}
+                        onChange={(e) => setPrinterDescription(e.target.value)}
+                    />
+                    <button onClick={simulatePrinter}>Simulate Multi-Material 3D Printer</button>
+                    {simulationResult && <div className="card" aria-live="polite"><p>{simulationResult}</p></div>}
+                    {validationResult && <div className="card" aria-live="polite"><p>{validationResult}</p></div>}
+                </div>
+            );
+        }
+
+        function ARVRAssembly() {
+            const [step, setStep] = React.useState(0);
+            const assemblySteps = [
+                "Place the 3D printed base on a flat surface.",
+                "Attach the main support structure to the base.",
+                "Connect the electronic components to the main board.",
+                "Secure the print head to the support structure.",
+                "Install the filament feeding mechanism.",
+                "Calibrate the printer bed and test the movements."
+            ];
+
+            return (
+                <div className="content">
+                    <h2>AR/VR Assembly Guide</h2>
+                    <div className="card">
+                        <h3>Step {step + 1}</h3>
+                        <p>{assemblySteps[step]}</p>
+                    </div>
+                    <button onClick={() => setStep(Math.max(0
+, step - 1))} disabled={step === 0}>Previous Step</button>
+                    <button onClick={() => setStep(Math.min(assemblySteps.length - 1, step + 1))} disabled={step === assemblySteps.length - 1}>Next Step</button>
+                </div>
+            );
+        }
+
+        function HealthDashboard() {
+            const healthMetrics = [
+                { name: 'Heart Rate', value: '72 bpm' },
+                { name: 'Blood Pressure', value: '120/80 mmHg' },
+                { name: 'Steps Today', value: '8,547' },
+                { name: 'Sleep', value: '7h 30m' },
+                { name: 'Calories Burned', value: '2,350 kcal' },
+                { name: 'Stress Level', value: 'Low' }
+            ];
+
+            return (
+                <div className="content">
+                    <h2>Health Dashboard</h2>
+                    <div className="card-grid">
+                        {healthMetrics.map((metric, index) => (
+                            <div key={index} className="card">
+                                <h3>{metric.name}</h3>
+                                <p>{metric.value}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+
